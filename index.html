@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Companion</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <canvas id="scene"></canvas>
+
+  <!-- Top-left name tag -->
+  <div id="nametag">
+    <div id="ring"></div>
+    <div id="nametext">
+      <span id="charname">— no model loaded —</span>
+      <span id="status">tap ⚙ to set up</span>
+    </div>
+  </div>
+
+  <button id="settingsBtn" aria-label="Settings">⚙</button>
+
+  <!-- Setup panel -->
+  <div id="setup" class="panel">
+    <h1>set up your companion</h1>
+
+    <label>Groq API key</label>
+    <input id="groqKey" type="password" placeholder="gsk_..." autocomplete="off" />
+    <p class="hint">Free at <span class="mono">console.groq.com</span> → API Keys. Stored only on this phone.</p>
+
+    <label>Model</label>
+    <input id="groqModel" type="text" value="llama-3.3-70b-versatile" />
+    <p class="hint">Change if Groq renames/retires a model — check <span class="mono">console.groq.com/docs/models</span>.</p>
+
+    <label>Character name</label>
+    <input id="charNameInput" type="text" value="Yuki" />
+
+    <label>Character personality (system prompt)</label>
+    <textarea id="personaInput" rows="4">You are a warm, playful companion who chats casually and briefly, like a close friend texting. Keep replies short (1-3 sentences) unless asked for more.</textarea>
+
+    <label>VRM model file (.vrm)</label>
+    <input id="vrmFile" type="file" accept=".vrm" />
+    <p class="hint">Get a free one from vroid.com/en/hub or make your own in VRoid Studio. File stays on your phone, never uploaded anywhere.</p>
+
+    <label class="row">
+      <input id="ttsToggle" type="checkbox" checked />
+      Voice replies (Kokoro, on-device, open source)
+    </label>
+    <p class="hint">First load downloads the voice model (~80MB) once, then it's cached. If your phone can't run it, replies fall back to silent text.</p>
+
+    <button id="saveBtn">Save &amp; start</button>
+    <p class="hint" id="setupError"></p>
+  </div>
+
+  <!-- Chat dock -->
+  <div id="dock">
+    <div id="log"></div>
+    <form id="chatForm">
+      <input id="chatInput" type="text" placeholder="Say something…" autocomplete="off" />
+      <button id="sendBtn" type="submit">➤</button>
+    </form>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+      "@pixiv/three-vrm": "https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@2.1.0/lib/three-vrm.module.min.js",
+      "kokoro-js": "https://cdn.jsdelivr.net/npm/kokoro-js@1.1.1/+esm"
+    }
+  }
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
